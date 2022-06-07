@@ -1,6 +1,9 @@
 package ru.geekbrains.entity;
 
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -10,7 +13,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -26,20 +29,11 @@ public class Product {
     )
     private List<Consumer> consumerList;
 
-    public Product(String name, int price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product() {
-
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -70,5 +64,16 @@ public class Product {
     @Override
     public String toString() {
         return "Product [ " + "id: " + id + " name: " + name + " price: " + price + " ]";
+    }
+
+    @ManyToMany(mappedBy = "productList")
+    private Collection<Consumer> consumers;
+
+    public Collection<Consumer> getConsumers() {
+        return consumers;
+    }
+
+    public void setConsumers(Collection<Consumer> consumers) {
+        this.consumers = consumers;
     }
 }

@@ -28,7 +28,7 @@ public class ConsumerDAO {
         session.getTransaction().commit();
     }
 
-    // Поиск покупателя по ID
+    // Поиск покупателя по ID покупателя
     public Consumer findById(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -37,7 +37,17 @@ public class ConsumerDAO {
         return consumer;
     }
 
-    // Удаление покупателя по ID
+    // Поиск всех товаров, которые купил покупатель
+    public List<Product> findProductsByIdConsumer(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Consumer consumer = session.get(Consumer.class, id);
+        List<Product> productList = consumer.getProductList();
+        session.getTransaction().commit();
+        return productList;
+    }
+
+    // Удаление покупателя по ID покупателя
     public void deleteById(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -55,14 +65,5 @@ public class ConsumerDAO {
         consumerList = session.createQuery("FROM Consumer ", Consumer.class).getResultList();
         session.getTransaction().commit();
         return consumerList;
-    }
-
-    // Получение списка продуктов по Id покупателя
-    public List<Product> findProductByIdConsumer(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        List<Product> productList;
-        session.beginTransaction();
-
-        return null;
     }
 }

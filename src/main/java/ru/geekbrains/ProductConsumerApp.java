@@ -14,8 +14,10 @@ public class ProductConsumerApp {
 //        ProductDAO productDAO = context.getBean("ProductDAO", ProductDAO.class);
 //        ConsumerDAO consumerDAO = context.getBean("ConsumerDAO", ConsumerDAO.class);
 
-        FindData findData = context.getBean("FindData", FindData.class);
+        FindData findData = context.getBean(FindData.class);
         System.out.println(findData.findConsumerByIdProduct(1));
+        System.out.println(findData.findConsumersByIdProduct(1));
         System.out.println(findData.findProductByIdConsumer(3));
+        System.out.println(findData.findConsumersByIdProduct(3));
     }
 }

@@ -12,7 +12,9 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
+
         <mapping class="ru.geekbrains.entity.Product"/>
         <mapping class="ru.geekbrains.entity.Consumer"/>
+
     </session-factory>
 </hibernate-configuration>

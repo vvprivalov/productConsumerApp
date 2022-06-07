@@ -2,7 +2,9 @@ package ru.geekbrains.beans;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.geekbrains.config.FactoryClass;
 import ru.geekbrains.entity.Consumer;
 import ru.geekbrains.entity.Product;
 
@@ -10,10 +12,12 @@ import java.util.List;
 
 @Component
 public class ConsumerDAO {
+
     private final SessionFactory sessionFactory;
 
-    public ConsumerDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    @Autowired
+    public ConsumerDAO(FactoryClass factoryClass) {
+        this.sessionFactory = factoryClass.getFactory();
     }
 
     // Сохранение покупателя
@@ -51,5 +55,14 @@ public class ConsumerDAO {
         consumerList = session.createQuery("FROM Consumer ", Consumer.class).getResultList();
         session.getTransaction().commit();
         return consumerList;
+    }
+
+    // Получение списка продуктов по Id покупателя
+    public List<Product> findProductByIdConsumer(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Product> productList;
+        session.beginTransaction();
+
+        return null;
     }
 }

@@ -2,7 +2,9 @@ package ru.geekbrains.beans;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.geekbrains.config.FactoryClass;
 import ru.geekbrains.entity.Product;
 
 import java.util.List;
@@ -11,8 +13,10 @@ import java.util.List;
 public class ProductDAO {
     private final SessionFactory sessionFactory;
 
-    public ProductDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    @Autowired
+    public ProductDAO(FactoryClass factoryClass) {
+
+        this.sessionFactory = factoryClass.getFactory();
     }
 
     // Сохранение продукта

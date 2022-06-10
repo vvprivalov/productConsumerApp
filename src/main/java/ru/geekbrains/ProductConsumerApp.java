@@ -4,7 +4,11 @@ package ru.geekbrains;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.geekbrains.config.Context;
+import ru.geekbrains.entity.Consumer;
+import ru.geekbrains.entity.Product;
 import ru.geekbrains.services.FindData;
+
+import java.util.List;
 
 public class ProductConsumerApp {
 
@@ -15,9 +19,14 @@ public class ProductConsumerApp {
 //        ConsumerDAO consumerDAO = context.getBean("ConsumerDAO", ConsumerDAO.class);
 
         FindData findData = context.getBean(FindData.class);
-        System.out.println(findData.findConsumerByIdProduct(1));
-        System.out.println(findData.findConsumersByIdProduct(1));
-        System.out.println(findData.findProductByIdConsumer(3));
-        System.out.println(findData.findConsumersByIdProduct(3));
+
+//        Consumer consumerByIdProduct = findData.findConsumerById(2);
+//        System.out.println(consumerByIdProduct);
+//        List<Product> productsByIdConsumer = findData.findProductsByIdConsumer(2);
+//        System.out.println(productsByIdConsumer);
+        Product product = findData.findProductById(1);
+        System.out.println(product);
+        List<Consumer> consumersByIdProduct = findData.findConsumersByIdProduct(1);
+        System.out.println(consumersByIdProduct);
     }
 }

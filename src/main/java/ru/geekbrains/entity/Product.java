@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -63,17 +63,8 @@ public class Product {
 
     @Override
     public String toString() {
+
         return "Product [ " + "id: " + id + " name: " + name + " price: " + price + " ]";
     }
 
-    @ManyToMany(mappedBy = "productList")
-    private Collection<Consumer> consumers;
-
-    public Collection<Consumer> getConsumers() {
-        return consumers;
-    }
-
-    public void setConsumers(Collection<Consumer> consumers) {
-        this.consumers = consumers;
-    }
 }

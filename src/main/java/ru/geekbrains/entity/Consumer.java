@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Consumers")
+@Table(name = "consumers")
 public class Consumer {
 
     @Id
@@ -50,4 +50,5 @@ public class Consumer {
     public String toString() {
         return "Consumer [ " + "id: " + id + " name: " + name + " ]";
     }
+
 }

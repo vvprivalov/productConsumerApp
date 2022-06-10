@@ -38,14 +38,16 @@ public class ProductDAO {
         return product;
     }
 
-    // Поиск все покупателей, купивших этот продукт
+    // Поиск всех покупателей, купивших этот продукт
     public List<Consumer> findConsumersByIdProduct(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Product product = session.get(Product.class, id);
-        List<Consumer> consumerList = product.getConsumerList();
+        Product product = (Product)session.createQuery("select p from Product p join p.consumerList where p.id=:param")
+                .setParameter("param", id).getSingleResult();
+        List<Consumer> consumers = product.getConsumerList();
         session.getTransaction().commit();
-        return consumerList;
+        System.out.println(product);
+        return consumers;
     }
     // Удаление продукта по ID продукта
     public void deleteById(int id) {

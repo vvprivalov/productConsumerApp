@@ -2,6 +2,7 @@ package ru.geekbrains.beans;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.config.FactoryClass;
@@ -41,8 +42,9 @@ public class ConsumerDAO {
     public List<Product> findProductsByIdConsumer(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Consumer consumer = session.get(Consumer.class, id);
-        List<Product> productList = consumer.getProductList();
+        Query query = session.createQuery("SELECT c FROM Consumer c WHERE c.id = : param");
+        query.setParameter("param", id);
+        List productList = query.getResultList();
         session.getTransaction().commit();
         return productList;
     }

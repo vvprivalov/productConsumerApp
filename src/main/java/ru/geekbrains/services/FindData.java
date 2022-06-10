@@ -1,7 +1,6 @@
 package ru.geekbrains.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.beans.ConsumerDAO;
 import ru.geekbrains.beans.ProductDAO;
@@ -21,7 +20,7 @@ public class FindData {
         this.productDAO = productDAO;
     }
 
-    public Product findProductByIdConsumer(int id) {
+    public Product findProductById(int id) {
 
         return productDAO.findById(id);
     }
@@ -32,7 +31,7 @@ public class FindData {
     }
 
 
-    public Consumer findConsumerByIdProduct(int id) {
+    public Consumer findConsumerById(int id) {
 
         return consumerDAO.findById(id);
     }

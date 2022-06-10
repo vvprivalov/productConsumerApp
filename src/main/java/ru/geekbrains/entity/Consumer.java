@@ -1,18 +1,16 @@
 package ru.geekbrains.entity;
 
-import org.springframework.context.annotation.EnableMBeanExport;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Consumers")
+@Table(name = "consumers")
 public class Consumer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -21,23 +19,14 @@ public class Consumer {
     @JoinTable(
             name = "consumers-products",
             joinColumns = @JoinColumn(name = "consumer_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productList;
 
-    public Consumer(String name) {
-        this.name = name;
-    }
-
-    public Consumer() {
-
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,4 +45,10 @@ public class Consumer {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
+
+    @Override
+    public String toString() {
+        return "Consumer [ " + "id: " + id + " name: " + name + " ]";
+    }
+
 }

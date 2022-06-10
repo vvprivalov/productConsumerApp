@@ -2,7 +2,10 @@ package ru.geekbrains.beans;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.geekbrains.config.FactoryClass;
 import ru.geekbrains.entity.Consumer;
 import ru.geekbrains.entity.Product;
 
@@ -10,10 +13,12 @@ import java.util.List;
 
 @Component
 public class ConsumerDAO {
+
     private final SessionFactory sessionFactory;
 
-    public ConsumerDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    @Autowired
+    public ConsumerDAO(FactoryClass factoryClass) {
+        this.sessionFactory = factoryClass.getFactory();
     }
 
     // Сохранение покупателя
@@ -24,7 +29,7 @@ public class ConsumerDAO {
         session.getTransaction().commit();
     }
 
-    // Поиск покупателя по ID
+    // Поиск покупателя по ID покупателя
     public Consumer findById(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -33,7 +38,18 @@ public class ConsumerDAO {
         return consumer;
     }
 
-    // Удаление покупателя по ID
+    // Поиск всех товаров, которые купил покупатель
+    public List<Product> findProductsByIdConsumer(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT c FROM Consumer c WHERE c.id = : param");
+        query.setParameter("param", id);
+        List productList = query.getResultList();
+        session.getTransaction().commit();
+        return productList;
+    }
+
+    // Удаление покупателя по ID покупателя
     public void deleteById(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
